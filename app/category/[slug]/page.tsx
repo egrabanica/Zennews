@@ -162,8 +162,9 @@ function ArticleCard({ article }: { article: any }) {
   );
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = categories[params.slug as keyof typeof categories];
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const category = categories[slug as keyof typeof categories];
 
   if (!category) {
     notFound();
